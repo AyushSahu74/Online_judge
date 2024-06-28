@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { logging } from "./services/api";
+import { Link } from 'react-router-dom'; // Import for navigation links
 
 function login() {
   const [formData, setFormData] = useState({
@@ -21,33 +22,13 @@ function login() {
     console.log("Login details:", formData);
     try {
       const response = await logging(formData);
-
-      // Handle successful registration (201)
-      if (response == "200") {
-        Setmsg("Log in successfull!");
-        // Optionally, perform additional actions like redirecting to a success page
-      }
-
-      if (response == "401") {
-        Setmsg("User not found!");
-      }
-
-      if (response == "400") {
-        Setmsg("Please enter all required fields.");
-      }
-
-      if (response == "402") {
-        Setmsg("Wrong password!");
-      }
+      console.log(response)
+      Setmsg(response.message);
     } catch (error) {
-      // Handle unexpected errors
       console.error("Login error:", error);
       Setmsg("An error occurred during Login. Please try again later.");
     } finally {
-      // Always reset the form data after submission, regardless of success or failure
       setFormData({
-        firstname: "",
-        lastname: "",
         email: "",
         password: "",
       });
@@ -97,7 +78,9 @@ function login() {
             type="submit"
             className="rounded-md ml-24 my-3 text-xl border border-gray-600 px-4 py-0.5 bg-slate-500 text-slate-100"
           >
+            {/* <Link to='http://localhost:5173/' > */}
             Login
+            {/* </Link> */}
           </button>
         </form>
         <div className="ml-20">{msg}</div>

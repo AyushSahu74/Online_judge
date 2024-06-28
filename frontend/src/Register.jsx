@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { registering } from "./services/api";
+import { Link } from 'react-router-dom'; // Import for navigation links
 
 function Register() {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -24,35 +26,18 @@ function Register() {
 
     try {
       const response = await registering(formData);
-
-      // Handle successful registration (201)
-      if (response == "201") {
-        Setmsg("Registration Successful!");
-        // Optionally, perform additional actions like redirecting to a success page
-      }
-
-      // Handle user already exists (400)
-      if (response == "400") {
-        Setmsg("User already exists!");
-      }
-
-      // Handle missing fields (401)
-      if (response == "401") {
-        Setmsg("Please enter all required fields.");
-      }
+      Setmsg(response);
     } catch (error) {
-      // Handle unexpected errors
       console.error("Registration error:", error);
       Setmsg("An error occurred during registration. Please try again later.");
     } finally {
-      // Always reset the form data after submission, regardless of success or failure
       setFormData({
-        firstname: "",
-        lastname: "",
+        username: "",
         email: "",
         password: "",
       });
     }
+    
   };
 
   return (
@@ -62,7 +47,7 @@ function Register() {
       }}
       className="w-full h-full p-2"
     >
-      <div className="w-80 h-80 mx-auto my-44 bg-amber-500 p-4 rounded-3xl">
+      <div className="w-80 h-96 mx-auto my-44 bg-amber-500 p-4 rounded-3xl">
         <div className="mx-16 text-zinc-700 text-3xl font-sans md:font-serif">
           LogicLoop
         </div>
@@ -88,6 +73,19 @@ function Register() {
             id="lastname"
             name="lastname"
             value={formData.lastname}
+            onChange={handleChange}
+            required
+            className="rounded-md my-2 ml-5 border-gray-600"
+          />
+          <br />
+          <label htmlFor="username" className="my-4 font-sans md:font-serif">
+            Username:
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
             className="rounded-md my-2 ml-5 border-gray-600"
@@ -124,7 +122,9 @@ function Register() {
             type="submit"
             className="rounded-md ml-24 my-3 text-xl border border-gray-600 px-4 py-0.5 bg-slate-500 text-slate-100"
           >
+            <Link to='http://localhost:5173/' >
             Register
+            </Link>
           </button>
         </form>
         <div className="ml-20">{msg}</div>
