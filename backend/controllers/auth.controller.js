@@ -4,7 +4,12 @@ const bcrypt = require("bcryptjs");
 
 const signup = async (req, res) => {
   try {
-    const { firstname, lastname, username, email, password, key } = req.body;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const key = req.body.key;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -48,10 +53,7 @@ const signup = async (req, res) => {
       await newUser.save();
 
       res.status(201).json({
-        _id: newUser._id,
-        fullName: newUser.fullName,
-        username: newUser.username,
-        email: newUser.email,
+        message: "Sign up successfull!",
       });
     } else {
       res.status(400).json({ error: "Invalid user data" });
@@ -64,7 +66,9 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const username = req.body.username;
+    const password = req.body.password;
+
     const user = await User.findOne({ username });
     const isPasswordCorrect = await bcrypt.compare(
       password,
@@ -78,15 +82,9 @@ const login = async (req, res) => {
     generateTokenAndSetCookie(user._id, res);
 
     res.status(200).json({
-      _id: user._id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      username: user.username,
-      email: user.email,
-      admin: user.admin,
+      message: "Login successfull",
     });
   } catch (error) {
-    console.log("Error in login controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'; // Import for navigation links
 
 function login() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -23,13 +23,13 @@ function login() {
     try {
       const response = await logging(formData);
       console.log(response)
-      Setmsg(response.message);
+      Setmsg(response);
     } catch (error) {
       console.error("Login error:", error);
       Setmsg("An error occurred during Login. Please try again later.");
     } finally {
       setFormData({
-        email: "",
+        username: "",
         password: "",
       });
     }
@@ -47,17 +47,16 @@ function login() {
           LogicLoop
         </div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email" className="my-4 font-sans md:font-serif">
-            Email:
+          <label htmlFor="username" className="my-4 font-sans md:font-serif">
+            Username:
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
-            className="rounded-md my-2 ml-14 border-gray-600"
+            className="rounded-md my-2 ml-6 border-gray-600"
           />
           <br />
           <label htmlFor="password" className="my-4 font-sans md:font-serif">

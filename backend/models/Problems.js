@@ -36,7 +36,7 @@ const ProblemSchema = new mongoose.Schema(
     timelimit: { type: Number, default: 5.0 },
     statement: { type: String, required: true },
     createdBy: { type: String, required: true },
-    difficulty: { type: String },
+    difficulty: { type: String, default: "easy" },
     tags: [{ type: String }],
     submissions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Submission" }],
     testcase: [

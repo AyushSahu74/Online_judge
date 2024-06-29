@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/problemset", problemset);
 router.post("/addproblem", protectRouteadmin, addproblem);
-router.get("/problem/:slug", protectRoute, problem);
+router.get("/problem/:slug", problem);
 
 module.exports = router;

@@ -3,8 +3,8 @@ const Problem = require("../models/Problems");
 const User = require("../models/Users");
 
 const problemset = async (req, res) => {
-  const {page} = req.body || 1;
-  const limit = 10;
+  const page = req.body.page;
+  const limit = 7;
 
   try {
     const problems = await Problem.find(

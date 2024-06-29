@@ -32,6 +32,8 @@ function Register() {
       Setmsg("An error occurred during registration. Please try again later.");
     } finally {
       setFormData({
+        firstname:"",
+        lastname:"",
         username: "",
         email: "",
         password: "",
@@ -122,9 +124,7 @@ function Register() {
             type="submit"
             className="rounded-md ml-24 my-3 text-xl border border-gray-600 px-4 py-0.5 bg-slate-500 text-slate-100"
           >
-            <Link to='http://localhost:5173/' >
             Register
-            </Link>
           </button>
         </form>
         <div className="ml-20">{msg}</div>

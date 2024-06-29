@@ -8,23 +8,22 @@ function Problemset() {
   const [isLoading, setIsLoading] = useState(false); // Flag for loading state
 
   // Function to fetch problems based on the current page number
-  const fetchProblems = async (pageNumber) => {
-    console.log(pageNumber);
+  const fetchProblems = async () => {
+    console.log(currentPage);
     setIsLoading(true);
     try {
-      const response = await probleming(pageNumber);
+      const response = await probleming(currentPage);
       setProblems(response);
     } catch (error) {
       console.error("Error fetching problems:", error);
     } finally {
       setIsLoading(false);
     }
-    console.log(problems);
   };
 
   // Fetch problems on initial render and page changes
   useEffect(() => {
-    fetchProblems(currentPage);
+    fetchProblems();
   }, [currentPage]);
 
   const handleNextPage = () => {
@@ -38,28 +37,28 @@ function Problemset() {
     }
   };
   return (
-    <div>
+    <div >
       {isLoading ? (
         <p>Loading problems...</p>
       ) : problems.length > 0 ? (
-        <table className="mx-96 my-8">
+        <table className="mx-auto my-8">
           <thead>
             <tr>
-              <th className="px-6 py-3 border border-black border-double shadow text-left text-3xl font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-teal-400 rounded-full  shadow text-left text-3xl font-medium text-white uppercase tracking-wider">
                 Problem
               </th>
-              <th className="px-6 py-3 border border-black border-double shadow text-left text-3xl font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-teal-400 rounded-full  shadow text-left text-3xl font-medium text-white uppercase tracking-wider">
                 Difficulty
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {problems.map((problem, index) => (
               <tr key={problem._id}>
-                <td className="px-6 py-4 border border-slate-500 whitespace-nowrap text-center text-xl font-medium text-gray-700">
+                <td className="px-4 py-4 bg-purple-200 rounded-full whitespace-nowrap text-center text-xl font-medium text-black">
                   <Link to={`/problem/${problem.slug}`}>{problem.title}</Link>
                 </td>
-                <td className="px-6 py-4 border border-slate-500 whitespace-nowrap text-center text-xl font-medium text-gray-700">
+                <td className="px-6 py-4 bg-pink-200 rounded-full whitespace-nowrap text-center text-xl font-medium text-black">
                   {problem.difficulty}
                 </td>
               </tr>
@@ -72,14 +71,14 @@ function Problemset() {
       <button
         disabled={isLoading}
         onClick={handlePrevPage}
-        className="border font-mono text-2xl ml-96 mr-24"
+        className="mx-96 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
       >
         Prev
       </button>
       <button
         disabled={isLoading}
         onClick={handleNextPage}
-        className="border font-mono text-2xl ml-52"
+        className="mx-64 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
       >
         Next
       </button>
