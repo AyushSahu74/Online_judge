@@ -7,9 +7,23 @@ const { executeJava } = require("./ExecuteCode/executeJava");
 
 const CONCURRENCY_LEVEL = 4;
 
-const jobQueue = new Queue("job-queue", {
-  redis: { host: "Ayush-Sahu", port: 6379 },
-});
+let jobQueue; // Declare the variable globally
+
+(async () => {
+  try {
+    jobQueue = new Queue("job-queue", {
+      redis: {
+        host: process.env.REDIS_HOST || "localhost",
+        port: process.env.REDIS_PORT || 6379
+      }
+    });
+
+    console.log("Successfully connected to Redis and created job queue!");
+
+  } catch (error) {
+    console.error("Failed to connect to Redis or create job queue:", error.message);
+  }
+})();
 
 async function executeJob(job) {
   try {
