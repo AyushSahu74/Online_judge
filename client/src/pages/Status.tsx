@@ -9,7 +9,7 @@ function Status() {
     (async function () {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:8000/api/code/submissions", {
+        const res = await fetch("http://ec2-13-201-7-91.ap-south-1.compute.amazonaws.com:8000/api/code/submissions", {
           credentials: "include",
         });
         const data = await res.json();

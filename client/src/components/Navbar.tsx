@@ -8,7 +8,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    window.open("http://localhost:8000/api/auth/google", "_self");
+    window.open("http://ec2-13-201-7-91.ap-south-1.compute.amazonaws.com:8000/api/auth/google", "_self");
   };
   const handleLogout = () => {
     dispatch(asyncLogout() as any);

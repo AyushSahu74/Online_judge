@@ -9,7 +9,7 @@ const initialState: InitialStateType = {
   singleProblem: undefined
 };
 
-const URL = 'http://localhost:8000/api'
+const URL = 'http://ec2-13-201-7-91.ap-south-1.compute.amazonaws.com:8000/api'
 
 export const asyncProblemAdd = createAsyncThunk(
   "problem/addProblem",
